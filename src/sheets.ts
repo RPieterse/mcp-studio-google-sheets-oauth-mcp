@@ -24,6 +24,12 @@ import type { OAuthCredentials } from "./credentials.js";
 export function createSheetsApi(creds: OAuthCredentials): SheetsApi {
   const oauth2 = new OAuth2Client({
     clientId: creds.client_id,
+    // client_secret is required for Google's token refresh endpoint even
+    // when PKCE was used to obtain the original tokens. Without it,
+    // googleapis fires a refresh on any API call and Google returns
+    // `{ error: "invalid_request" }` with HTTP 400 — a misleading error
+    // that looks like the API call itself failed.
+    clientSecret: creds.client_secret || undefined,
   });
   oauth2.setCredentials({
     access_token: creds.access_token,

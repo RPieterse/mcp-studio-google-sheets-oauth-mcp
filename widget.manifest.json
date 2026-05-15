@@ -11,6 +11,7 @@
     "args": ["./dist/index.js"],
     "env": {
       "GOOGLE_OAUTH_CLIENT_ID": "${secrets.gsheets_oauth_tokens.client_id}",
+      "GOOGLE_OAUTH_CLIENT_SECRET": "${secrets.gsheets_oauth_tokens.client_secret}",
       "GOOGLE_OAUTH_ACCESS_TOKEN": "${secrets.gsheets_oauth_tokens.access_token}",
       "GOOGLE_OAUTH_REFRESH_TOKEN": "${secrets.gsheets_oauth_tokens.refresh_token}"
     }

@@ -9,12 +9,16 @@
 
 export interface OAuthCredentials {
   client_id: string;
+  /** Required for Google's token refresh — Google's Desktop OAuth needs
+   *  the client_secret on every token-endpoint call, even with PKCE. */
+  client_secret: string;
   access_token: string;
   refresh_token: string;
 }
 
 export function parseOAuthEnv(): OAuthCredentials {
   const client_id = (process.env.GOOGLE_OAUTH_CLIENT_ID ?? "").trim();
+  const client_secret = (process.env.GOOGLE_OAUTH_CLIENT_SECRET ?? "").trim();
   const access_token = (process.env.GOOGLE_OAUTH_ACCESS_TOKEN ?? "").trim();
   const refresh_token = (process.env.GOOGLE_OAUTH_REFRESH_TOKEN ?? "").trim();
   if (!client_id) {
@@ -27,8 +31,15 @@ export function parseOAuthEnv(): OAuthCredentials {
       "GOOGLE_OAUTH_ACCESS_TOKEN is empty. Open Settings -> MCP Servers -> Google Sheets (OAuth) and click 'Authorize in browser' to run the OAuth flow.",
     );
   }
+  // client_secret can technically be empty if the OAuth provider doesn't
+  // require it, but Google DOES — we surface a soft warning, not an
+  // error, because some providers happily work without it.
+  if (!client_secret) {
+    console.error(
+      "[google-sheets-oauth-mcp] warning: GOOGLE_OAUTH_CLIENT_SECRET is empty. Google's token refresh will fail when the access token expires. Save the client_secret field in Settings -> MCP Servers -> Google Sheets (OAuth) to enable auto-refresh.",
+    );
+  }
   // refresh_token can be empty on subsequent auths (Google only returns it
-  // on first consent unless `prompt=consent` is forced); we still operate
-  // with the access_token alone but log a hint.
-  return { client_id, access_token, refresh_token };
+  // on first consent unless `prompt=consent` is forced).
+  return { client_id, client_secret, access_token, refresh_token };
 }
