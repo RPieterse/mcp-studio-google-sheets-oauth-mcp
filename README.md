@@ -29,20 +29,17 @@ You need a Google OAuth Client ID before installing.
 /install https://github.com/RPieterse/mcp-studio-google-sheets-oauth-mcp
 ```
 
-Two extra steps because the bundled manifest can't know your Client ID:
+After install, Studio opens **Settings → MCP Servers → Google Sheets
+(OAuth)**. Expand the row, then:
 
-1. **Edit the manifest's `client_id`** to your actual OAuth Client ID.
-   Open `~/.mcp-widget/mcps/com.rohanpieterse.gsheets_oauth/widget.manifest.json`
-   in a text editor and replace `PASTE_YOUR_OAUTH_CLIENT_ID_HERE` with
-   the Client ID from setup step 5. Save.
-2. Back in Studio: Settings → MCP Servers → Google Sheets (OAuth) →
-   expand → click **Authorize in browser**. Approve the consent screen.
-   Studio captures the tokens.
+1. Paste your **OAuth Client ID** into the input field and click
+   **Save**.
+2. Click **Authorize in browser** below. Approve the Google consent
+   screen. Studio captures the tokens.
 
 After that:
 
 - `/osheet_create Demo` creates a sheet owned by you, in your My Drive.
-- `/osheet_read` reads from the most recently created one.
 
 ## Why the duplicated trigger names
 
