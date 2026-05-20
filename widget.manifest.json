@@ -58,7 +58,8 @@
       "trigger": "osheet_create",
       "description": "Create a new Google Sheet (OAuth) with the given title",
       "tool": "create_sheet",
-      "arg_key": "title"
+      "arg_key": "title",
+      "platforms": ["desktop", "mobile", "cli"]
     }
   ]
 }
