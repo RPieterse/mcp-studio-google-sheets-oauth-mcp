@@ -2,7 +2,7 @@
   "manifest_version": 1,
   "id": "com.rohanpieterse.gsheets_oauth",
   "name": "Google Sheets (OAuth)",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Create, read, and modify Google Sheets as YOUR Google account via OAuth. Files are owned by you (not a service account), so they appear in your personal Drive and sharing works the normal way. Companion to com.rohanpieterse.gsheets which uses a service account.",
   "homepage": "https://developers.google.com/sheets/api",
   "mcp": {
